@@ -1,0 +1,343 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[left=4cm, right=3cm, top=4cm, bottom=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[indonesian]{babel}
+
+\renewcommand{\refname}{Daftar Pustaka}
+
+\def\tablename{Tabel}
+\def\figurename{Gambar}
+
+\captionsetup{width=0.85\textwidth}
+
+%opening
+\title{PENDEKATAN KUADRAT TERKECIL TERBOBOT PADA KASUS DISKRIT DAN KONTINU}
+\author{Bulan Mulya Utama (M0122017) dan\\ Chalista Divia Maharani Djuanda (M0122021)}
+
+\begin{document}
+	
+\maketitle
+	
+%\begin{abstract}
+	
+%\end{abstract}
+	
+\section{Latar Belakang Masalah}
+	\ \indent Pendekatan kuadrat terkecil terbobot adalah salah satu metode numerik dalam matematika untuk menemukan fungsi yang paling cocok untuk kumpulan data yang diberikan. Dalam pendekatan ini, setiap data diberi bobot berdasarkan akuratnya data tersebut dan kemudian fungsi yang paling cocok dihitung dengan meminimalkan jumlah kuadrat error dari selisih antara nilai data dan nilai yang diprediksi oleh fungsi.
+	\section{Perumusan Masalah}
+	Berdasarkan latar belakang masalah, diperoleh tiga rumusan masalah, yaitu:
+\begin{enumerate}
+	\item bagaimana menurunkan ulang algoritme kuadrat terkecil terbobot untuk menentukan polinomial pendekatan data dan fungsi dalam kasus diskrit dan kontinu,
+	\item bagaimana menerapkan algoritme kuadrat terkecil terbobot untuk menentukan polinomial pendekatan data dan fungsi dalam kasus diskrit dan kontinu, dan
+	\item bagaimana menganalisis eror polinomial pendekatan kuadrat terkecil terbobot dalam kasus diskrit dan kontinu.
+\end{enumerate}
+\section{Tujuan}
+Berdasarkan rumusan masalah, diperoleh tiga tujuan, yaitu:
+\begin{enumerate}
+	\item [(1)] menurunkan ulang algoritme kuadrat terkecil terbobot untuk menentukan polinomial pendekatan data dan fungsi dalam kasus diskrit dan kontinu,
+	\item [(2)] menerapkan algoritme kuadrat terkecil terbobot untuk menentukan polinomial pendekatan data dan fungsi dalam kasus diskrit dan kontinu, dan
+	\item [(3)] menganalisis eror polinomial pendekatan kuadrat terkecil terbobot dalam kasus diskrit dan kontinu.
+\end{enumerate}
+
+\section{Pembahasan}
+\subsection{Penurunan Ulang Algoritme Kuadrat Terkecil Terbobot}	
+\begin{enumerate}
+	\item [4.1.1] Kasus Kontinu \\
+Jika fungsi $f(x)$ pada interval [a,b] didekati oleh $\phi(x;a_0,a_1,a_2,\cdots,a_n)$ dengan $a_0,a_1,a_2,\dots,a_n~$ adalah parameter. Dalam pendekatan kuadrat terkecil, parameter ini ditentukan dengan meminimumkan eror, yaitu:
+\begin{equation}
+	E=  \int_{a}^{b} w(x)(f(x)-\phi(x;a_0,a_1,a_2,\cdots,a_n))^2\,dx \
+\end{equation}
+Dimana $w(x) \geq 0$ untuk $\emph{x}~\in [a,b]$ merupakan fungsi bobot, apabila data yang diberikan semakin akurat, maka bobotnya akan semakin besar. Karena $\phi(x;a_0,a_1,a_2,\cdots,a_n)=a_0+a_1 x+\cdots+ a_n x^n$, maka persamaan (1) menjadi 
+\begin{equation}
+	E=  \int_{a}^{b} w(x)(f(x)-a_0-a_1 x-\cdots-a_j x^j-\cdots-a_n x^n)^2\,dx \
+\end{equation}
+Agar nilai $E$ minimum maka parameter dipilih sedemikian sehingga
+$$ \frac{\partial E}{\partial a_j} = 0, j=0,1,2,\cdots,n $$
+dan persamaan (2) menjadi 
+\begin{equation}
+	\frac{\partial E}{\partial a_j} = 0 \Rightarrow E= \int_{a}^{b} 2w(x)(f(x)-a_0-a_1 x-\cdots-a_j x^j-\cdots-a_n x^n)(-x^j)\,dx \
+\end{equation} 
+Selanjutnya, dari persamaan (3) diperoleh persamaan normal untuk kasus kontinu sebagai berikut:
+\begin{footnotesize}
+	\begin{equation}
+		a_0\int_{a}^{b} w(x)x^j\,dx \ + a_1\int_{a}^{b} w(x)x^{j+1} \,dx \ + \cdots + a_n\int_{a}^{b} w(x)x^{j+n}\,dx \ = \int_{a}^{b} w(x)x^jf(x)\,dx
+	\end{equation}
+\end{footnotesize}
+
+dengan $j=0,1,2,\cdots,n$ maka persamaan (4) dapat disajikan dalam bentuk:
+\begin{footnotesize}
+	\begin{equation}
+		{\fontsize{6}{10}\selectfont
+		\begin{pmatrix}
+			\int_{a}^{b} w(x)\, dx & \int_{a}^{b} w(x)x\, dx & \int_{a}^{b} w(x)x^2\, dx & \cdots & \int_{a}^{b} w(x)x^n\, dx\\
+			\int_{a}^{b} w(x)x\, dx & \int_{a}^{b} w(x)x^2\, dx & \int_{a}^{b} w(x)x^3\, dx & \cdots & \int_{a}^{b} w(x)x^{n+1}\, dx\\
+			\int_{a}^{b} w(x)x^2\, dx & \int_{a}^{b} w(x)x^3\, dx & \int_{a}^{b} w(x)x^4\, dx & \cdots & \int_{a}^{b} w(x)x^{n+2}\, dx\\
+			\vdots & \vdots &  \vdots & \ddots & \vdots\\ 
+			\int_{a}^{b} w(x)x^{n}\, dx & \int_{a}^{b} w(x)x^{n+1}\, dx & \int_{a}^{b} w(x)x^{n+2}\, dx & \cdots & \int_{a}^{b} w(x)x^{2n}\, dx
+		\end{pmatrix}
+		\begin{pmatrix}
+			a_{0}\\
+			a_{1}\\ 
+			a_{2}\\
+			\vdots\\ 
+			a_{n}  
+		\end{pmatrix}
+		=
+		\begin{pmatrix}
+			\int_{a}^{b} w(x)f(x)\, dx\\
+			\int_{a}^{b} w(x)xf(x)\, dx\\ 
+			\int_{a}^{b} w(x)x^2f(x)\, dx\\
+			\vdots\\ 
+			\int_{a}^{b} w(x)x^nf(x)\, dx
+		\end{pmatrix}
+		}
+	\end{equation}
+\end{footnotesize}
+jika w $\equiv 1$ maka persamaan (5) menjadi
+{\fontsize{11}{11}\selectfont
+	\begin{equation}
+		\begin{bmatrix}
+			b-a & \frac{b^2-a^2}{2} & \frac{b^3-a^3}{3} & \cdots & \frac{b^{n+1}-a^{n+1}}{n+1}\\
+			\frac{b^2-a^2}{2} & \frac{b^3-a^3}{3} & \frac{b^4-a^4}{4} & \cdots & \frac{b^{n+2}-a^{n+2}}{n+2}\\
+			\frac{b^3-a^3}{3} & \frac{b^4-a^4}{4} & \frac{b^5-a^5}{5} & \cdots & \frac{b^{n+3}-a^{n+}}{n+2}\\
+			\vdots & \vdots &  \vdots & \ddots & \vdots\\ 
+			\frac{b^{n+1}-a^{n+1}}{n+1} & \frac{b^{n+2}-a^{n+2}}{n+2} & \frac{b^{n+3}-a^{n+3}}{n+3} & \cdots & \frac{b^{2n+1}-a^{2n+1}}{2n+1}
+		\end{bmatrix}
+		\begin{bmatrix}
+			a_{0}\\
+			a_{1}\\ 
+			a_{2}\\
+			\vdots\\ 
+			a_{n}  
+		\end{bmatrix}
+		=
+		\begin{bmatrix}
+			\int_{a}^{b} f(x)\, dx\\
+			\int_{a}^{b} xf(x)\, dx\\ 
+			\int_{a}^{b} x^2f(x)\, dx\\
+			\vdots\\ 
+			\int_{a}^{b} x^nf(x)\, dx
+		\end{bmatrix}
+	\end{equation}
+}
+
+yang mana $a_i$ merupakan penyelesaian dari sistem persamaan linear (6) untuk kasus kontinu.\\
+
+\vspace{0.5cm}
+	\item [4.1.2] Kasus Diskrit \\
+Jika diberikan data $(x_i,f_i)$ dengan $i=0,1,\cdots,m$ yang didekati oleh $\phi (x_i;a_0,a_1,a_2,\cdots,a_n)$
+dimana $n<m$ dari $a_0,a_1,a_2,\cdots,a_n$ adalah parameter. Dalam pendekatan kuadrat terkecil, parameter ini ditentukan dengan meminimumkan eror, yaitu:
+\begin{equation}
+	E=  \sum_{i=0}^m w(x)(f(x)-\phi(x;a_0,a_1,a_2,\cdots,a_n))^2
+\end{equation}
+dengan $w_i \geq 0$ merupakan bobot, jika $\phi$ polinomial,maka 
+\begin{equation}
+	\phi(x_i;a_0,a_1,a_2,\cdots,a_n)=a_0+a_1 x+\cdots+a_n x^n
+\end{equation}
+
+sehingga persamaan (7) dapat ditulis menjadi
+\begin{equation}
+	\begin{split}
+		E=  \sum_{i=0}^m w_i(f_i-(a_0-a_1 x-\cdots-a_j x_i^j-\cdots-a_n x_i^n))^2\\
+		E=  \sum_{i=0}^m 2w_i((f_i-a_0-a_1 x-\cdots-a_j x_i^j-\cdots-a_n x_i^n)(-x_i^j))^2
+	\end{split}
+\end{equation}
+
+Agar nilai E minimum maka parameter $a_0,a_1,\cdots,a_n$ dipilih sedemikian sehingga 
+
+$$ \frac{\partial E}{\partial a_j} = 0, j=0,1,2,\cdots,n $$
+dan persamaan (9) menjadi 
+\begin{equation}
+	\frac{\partial E}{\partial a_j} = 0 \Rightarrow E= \sum_{i=0}^m 2w_i(f_i-a_0-a_1 x_1-\cdots-a_j x_i^j-\cdots-a_n x^n)(-x_i^j)
+\end{equation}
+
+dengan menyusun ulang persamaan (10) diperoleh
+\begin{equation}
+	a_0\sum_{i=0}^m w_ix_i^j + a_1\sum_{i=0}^m w_ix_i^{j+1} + \cdots + a_n\sum_{i=0}^m w_ix_i^{j+n}= \sum_{i=0}^m w_ix_i^jf_i
+\end{equation}
+dengan $j=0,1,2,\cdots,n$. Maka persamaan (11) dapat disajikan dalam bentuk
+\begin{footnotesize}
+	\begin{equation}
+		{\fontsize{8}{11}\selectfont
+		\begin{pmatrix}
+			\sum_{i=0}^m w_i & \sum_{i=0}^m w_ix_i & \sum_{i=0}^m w_ix_i^2 & \cdots & \sum_{i=0}^m w_ix_i^n\\
+			\sum_{i=0}^m w_ix_i & \sum_{i=0}^m w_ix_i^2 & \sum_{i=0}^m w_ix_i^3 & \cdots & \sum_{i=0}^m w_ix_i^{n+1}\\
+			\sum_{i=0}^m w_ix_i^2 & \sum_{i=0}^m w_ix_i^3 & \sum_{i=0}^m w_ix_i^4 & \cdots & \sum_{i=0}^m w_ix_i^{n+2}\\
+			\vdots & \vdots &  \vdots & \ddots & \vdots\\ 
+			\sum_{i=0}^m w_ix_i^{n} & \sum_{i=0}^m w_ix_i^{n+1} & \sum_{i=0}^m w_ix_i^{n+2} & \cdots & \sum_{i=0}^m w_ix_i^{2n}
+		\end{pmatrix}
+		\begin{pmatrix}
+			a_{0}\\
+			a_{1}\\ 
+			a_{2}\\
+			\vdots\\ 
+			a_{n}  
+		\end{pmatrix}
+		=
+		\begin{pmatrix}
+			\sum_{i=0}^m w_if_i\\
+			\sum_{i=0}^m w_if_ix_i\\ 
+			\sum_{i=0}^m w_if_ix_i^2\\
+			\vdots\\ 
+			\sum_{i=0}^m w_i f_ix_i^n
+		\end{pmatrix}
+		}
+	\end{equation}
+\end{footnotesize}
+
+yang mana $a_i$ merupakan penyelesaian dari sistem persamaan linear (12) untuk kasus diskrit.
+\end{enumerate}
+\subsection{Penerapan Algoritme Kuadrat Terkecil Terbobot}
+\begin{enumerate}
+	\item [4.2.1] Kasus Diskrit
+	\\ Tentukan polinomial pendekatan kuadrat terkecil yaitu polinomial 
+	berderajat satu sampai empat pada 55 data yang terdapat dalam Gambar 1 dengan bobot $w_i = 1; i = 0, 1, 2, \cdots, 54$.
+
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[width=6cm,height=4cm]{grafdisk fiks}
+			\caption{Grafik data $(x_i , f_i)$.}
+		\end{center}
+	\end{figure}
+	Menentukan parameter polinomial pendekatan berderajat satu sampai empat dengan mensubstitusikan data pada sistem persamaan linear (6). Sehingga didapat polinomial pendekatan berderajat satu sampai empat sebagai berikut.
+\begin{table}[H]
+	\caption{Polinomial pendekatan dari data $(x_i, f_i)$ dengan bobot $w_i$.}
+	\label{tb_eror}
+	\begin{center}
+		\begin{tabular}{|p{3mm}|p{120mm}|}
+		\hline
+		%after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+		n & \ $P_n(x)$ \\ \hline
+		1 & $P_1(x)$ = 1.13049 + 0.0521299$x$ \\
+		2 & $P_2(x)= 1.4041+0.0211558x+0.000573593x^2$ \\
+		3 & $P_3(x)= 1.40393 + 0.0211953x + 0.00057175x^2 + 2.27497 \times 10^{-8}x^3$ \\
+		4 & $P_4(x)=1.10291+0.0544309x-8.09167 \times 10^{-6}x^2-2.76497 \times 10^{-7}x^3$-8.88029\times 10^{-9}x^4$ \\
+		\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+	Grafik polinomial pendekatan berderajat satu sampai empat dari data $(x_i,f_i)$ dengan bobot $w_i$ pada Tabel 1 ditunjukan sebagai berikut:
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[width=8cm,height=5cm]{polgab disk fiksss}
+		\end{center}
+		\begin{center}
+			\caption{Grafik polinomial pendekatan berderajat satu sampai empat, $P_1(x)$(merah), $P_2(x)$(biru), $P_3(x)$(magenta), $P_4(x)$(coklat).}
+		\end{center}
+	\end{figure}
+	Dengan menggunakan persamaan (9), dapat ditentukan nilai eror masing-masing polinomial pendekatan dari Gambar 2. Nilai eror pada polinomial pendekatan berderajat satu sampai empat yaitu sebagai berikut. 
+\begin{table}[H]
+	\caption{Nilai eror polinomial pendekatan dari data $(x_i, f_i)$ dengan bobot $w_i$.}
+	\begin{center}
+		\begin{tabular}{|p{3mm}|p{120mm}|}
+			\hline
+			%after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+			n & \ $E(P_n(x))$ \\ \hline
+			1 & $E(P_1(x))$ = 1.27081 \\
+			2 & $E(P_2(x))$ = 0.352512 \\
+			3 & $E(P_3(x))$ = 0.352723 \\
+			4 & $E(P_4(x))$ = 1.51376 \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+	Distribusi eror masing-masing polinomial pendekatan dari data $(x_i,f_i)$ dengan bobot $w_i$ pada Tabel 2 ditunjukan sebagai berikut.
+	
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[width=8cm,height=5cm]{disteror diks fiks}
+		\end{center}
+		\begin{center}
+			\caption{Grafik distribusi eror dari polinomial pendekatan berderajat satu sampai empat, $P_1(x)$(biru), 
+				$P_2(x)$(hijau), $P_3(x)$(merah), $P_4(x)$(pink).}
+		\end{center}
+	\end{figure}
+	Dari gambar 2  terlihat bahwa polinomial berderajat tiga adalah polinomial yang paling mendekati data. Lalu, dapat dilihat pula pada Tabel 2 bahwa nilai eror polinomial pendekatan yang terkecil adalah polinomial berderajat tiga. Dengan demikian, polinomial pendekatan yang paling baik untuk data $(x_i , f_i)$ dengan bobot $w_i$ tersebut adalah polinomial berderajat tiga.
+	
+	\item [4.2.1] Kasus Kontinu
+	\\Diambil dari Buku Plybon halaman 335: \textit{Exercise Set 8.3}. Tentukan polinomial pendekatan kuadrat terkecil dari fungsi $f(x)=e^{-x} $ pada interval [-1,1] dengan $w(x) \equiv 1 $. Dalam kasus ini, akan dicari polinomial pendekatan berderajat satu sampai empat.
+	
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[width=8cm,height=5cm]{fs kontinu}
+		\end{center}
+		\begin{center}
+			\caption{Grafik fungsi $f(x)=e^{-x}$ pada interval [-1,1]}
+		\end{center}
+	\end{figure}
+	Untuk menentukan parameter polinomial pendekatan berderajat satu sampai empat dilakukan dengan mensubstitusikan fungsi tersebut ke dalam persamaan (12) sehingga didapat polinomial pendekatan berderajat satu sampai empat sebagai berikut.\\
+	
+	\begin{table}[H]
+		\caption{Polinomial pendekatan berderajat satu sampai empat dari fungsi $f(x)=e^{-x} $ pada interval [-1,1].}
+		\begin{center}
+    		\begin{tabular}{|p{3mm}|p{120mm}|}
+			\hline
+			%after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+			n & \ $P_n(x)$ \\ \hline
+			1 & $P_1(x)$ = 1.1752 - 1.10364$x$ \\
+			2 & $P_2(x)$ = 0.996294 - 1.10364$x$ + 0.536722$x^2$ \\
+			3 & $P_3(x)$ = 0.996294 - 0.997955$x$ + 0.536722$x^2$ - 0.176139$x^3$\\
+			4 & $P_4(x)$ = 1.00003 - 0.997955$x$ + 0.499352$x^2$ - 0.176139$x^3$ + 0.0435974$x^4$\\
+	
+			\hline
+			\end{tabular}
+		\end{center}
+	\end{table}
+	Grafik polinomial pendekatan berderajat satu sampai empat dari fungsi $f(x) = e^{-x} $ pada interval [-1,1] sebagai berikut.
+\begin{figure}[H]
+	\begin{center}
+	\includegraphics[width=9cm,height=7cm]{gabpolkon}
+	\end{center}
+	\begin{center}
+	\caption{Grafik polinomial pendekatan berderajat satu sampai empat, $P_1(x)$(magenta), $P_2(x)$(biru), $P_3(x)$(hijau), $P_4(x)$(kuning) dari fungsi $f(x) = e^{-x} $ pada interval [-1,1].}
+	\end{center}
+	\end{figure}
+Grafik eror masing-masing polinomial pendekatan dari fungsi 
+$f(x) = e^{-x} $ pada interval [-1,1] disajikan pada gambar berikut.
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=8cm,height=5cm]{epkontsmwa}
+	\end{center}
+	\begin{center}
+		\caption{Grafik eror polinomial pendekatan berderajat satu sampai empat, $P_1(x)$(hijau), $P_2(x)$(jingga), $P_3(x)$(merah), $P_4(x)$(magenta).}
+	\end{center}
+\end{figure}
+\pagebreak
+	Dari gambar 5  terlihat bahwa polinomial berderajat empat (warna kuning) adalah polinomial yang paling mendekati fungsi $f(x)=e^{-x}$. Lalu, dapat dilihat pula pada Gambar 6 bahwa nilai eror polinomial pendekatan yang terkecil dan mendekati nol adalah polinomial berderajat empat (warna magenta). Dengan demikian, polinomial pendekatan yang paling baik untuk fungsi $f(x)=e^{-x}$ pada interval [-1,1] adalah polinomial berderajat empat.
+\end{enumerate}	
+\section{Kesimpulan}
+Berdasarkan pembahasan dan penerapan yang diberikan, didapatan kesimpulan bahwa:
+\begin{enumerate}
+	\item Jika diberikan data $(x_i,f_i)$ untuk $i=0,1,2,3,4,5,6,...,m$ didekati oleh \\
+	$\upsilon(x_i;a_0,a_1,...a_n)= a_0+a_1+...+...+...a_n(x)^{n}$. Dengan pendekatan kuadrat terkecil terbobot maka parameter $a_0,a_1,...,a_n$ dapat ditentukan dengan sistem persamaan linear yaitu:
+	$$ a_0\sum_{i=0}^m w_ix_i^{j}+a_1\sum_{i=0}^m w_ix_i^{j+1}+...+a_n\sum_{i=0}^m w_ix_i^{j+n}=\sum_{i=0}^m w_ix_i^{j}f_i$$
+	\\dengan $j = 0, 1, 2, ..., n.$
+	\vspace{0.2cm}
+	\\Jika suatu fungsi $f(x)$ pada interval [a,b] didekati oleh 
+	$$\upsilon(x_i;a_0,a_1,...a_n)= a_0+a_1+...+...+...a_n(x)^{n}$$
+	dengan menggunakan algoritme pendekatan kuadrat terkecil terbobot, maka parameter $a_0,a_1,…,a_n$ dapat ditentukan dengan sistem persamaan normal yaitu:
+	\begin{footnotesize}
+		\begin{equation*}
+			a_0\int_{a}^{b} w(x)x^j\,dx \ + a_1\int_{a}^{b} w(x)x^{j+1} \,dx \ + \cdots + a_n\int_{a}^{b} w(x)x^{j+n}\,dx = \int_{a}^{b} w(x)x^jf(x)\,dx
+		\end{equation*}
+	\end{footnotesize}
+	dengan $j = 0, 1, 2, ..., n.$
+	\vspace{0.25cm}
+	\item Analisis eror diperlukan untuk menentukan polinomial pendekatan terbaik. Polinomial pendekatan terbaik adalah polinomial dengan nilai eror yang paling minimum. Pada kasus diskrit diperoleh polinomial pendekatan yang paling baik adalah polinomial pendekatan berderajat tiga $P_3(x)= 1.40393 + 0.0211953x + 0.00057175x^2 + 2.27497 \times 10^{-8}x^3$. Sedangkan dalam kasus kontinu diperoleh polinomial pendekatan yang paling baik adalah polinomial pendekatan berderajat empat $P_4(x) = 1.00003 - 0.997955x + 0.499352x^2 -0.176139x^3 + 0.0435974x^4$.
+	
+\end{enumerate}
+\begin{thebibliography}{15}
+	\bibitem{tdonald}
+	May, R.L., Approximation and Quadrature, 1991.
+	\bibitem{tdonald}
+	Plybon, B.F., An Introduction to Applied Numerical Analysis. PWS Kent. Boston. 1992. 
+
+	
+\end{thebibliography}
+
+\end{document}
+
+
